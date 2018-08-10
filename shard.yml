@@ -1,0 +1,9 @@
+name: vcr
+version: 0.1.0
+
+authors:
+  - Holden Omans <holden.omans@gmail.com>
+
+crystal: 0.25.1
+
+license: MIT
