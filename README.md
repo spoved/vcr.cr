@@ -1,6 +1,8 @@
 # vcr
 
-VCR for Crystal
+VCR for Crystal!
+
+Record your test suite's HTTP interactions and replay them during future test runs for fast, deterministic, accurate tests.
 
 ## Installation
 

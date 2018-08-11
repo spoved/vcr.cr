@@ -4,6 +4,9 @@ version: 0.1.0
 authors:
   - Holden Omans <holden.omans@gmail.com>
 
+description: |
+  Record your test suite's HTTP interactions and replay them during future test runs for fast, deterministic, accurate tests.
+
 crystal: 0.25.1
 
 license: MIT
