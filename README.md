@@ -58,6 +58,17 @@ load_cassette("cassette-two", :record) do
 end
 ```
 
+To record difference in the same response add the `:in_order` argument. This Will
+record and play back the VCR in order the requests occurred (recording new ones if missing).
+
+```crystal
+VCR.use_cassette("cassette-one", :record, :in_order) do
+  r1 = HTTP::Client.get("https://jsonplaceholder.typicode.com/todos")
+  HTTP::Client.delete("https://jsonplaceholder.typicode.com/todos/1")
+  r2 = HTTP::Client.get("https://jsonplaceholder.typicode.com/todos")
+end
+```
+
 Customize the location of where the cassettes are stored. The default is `spec/fixtures/vcr`.
 
 ```crystal

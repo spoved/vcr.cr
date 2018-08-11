@@ -6,6 +6,7 @@ require "./vcr/*"
 module VCR
   extend self
 
+  @@in_order = false
   @@sequence = 0
 
   Habitat.create do
@@ -22,10 +23,38 @@ module VCR
     @@sequence += 1
   end
 
+  # Returns true if the casset should record requests in order
+  def in_order?
+    @@in_order
+  end
+
+  # Defines the cassette to load for recording. Optional arguments can also be
+  # passed.
+  #
+  # Options:
+  # * `:record` - will delete any VCR files in this cassette so new ones can be generated
+  # * `:in_order` - will record requests in order (allows multiple records of the same request). Should be used when you expect the result to be different on a second request
+  #
+  # Example:
+  # ```
+  # VCR.use_cassette("cassette-one") do
+  #   r1 = HTTP::Client.get("https://jsonplaceholder.typicode.com/todos")
+  # end
+  # ```
+  #
+  # Record new responses, in order, so i can verify the delete worked
+  # ```
+  # VCR.use_cassette("cassette-one", :record, :in_order) do
+  #   r1 = HTTP::Client.get("https://jsonplaceholder.typicode.com/todos")
+  #   HTTP::Client.delete("https://jsonplaceholder.typicode.com/todos/1")
+  #   r2 = HTTP::Client.get("https://jsonplaceholder.typicode.com/todos")
+  # end
+  # ```
   def use_cassette(cassette_name : String, *args, &block)
     @@cassette_name = cassette_name
     @@sequence = 0
 
+    @@in_order = args.includes?(:in_order)
     reset_cassette(cassette_name) if args.includes?(:record)
 
     block.call
@@ -36,6 +65,7 @@ module VCR
   private def reset!
     @@cassette_name = nil
     @@sequence = 0
+    @@in_order = false
   end
 
   private def reset_cassette(cassette)

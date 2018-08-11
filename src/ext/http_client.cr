@@ -20,7 +20,10 @@ class HTTP::Client
 
     # Create a dir for our cassette
     FileUtils.mkdir(cassette_dir) unless (Dir.exists?(cassette_dir))
-    cassette_path = File.join(cassette_dir, "#{VCR.sequence}.#{req_md5}.vcr")
+
+    # Make file name based on if this cassette should be tracked in order
+    file_name = VCR.in_order? ? "#{VCR.sequence}.#{req_md5}.vcr" : "#{req_md5}.vcr"
+    cassette_path = File.join(cassette_dir, file_name)
 
     # If it exists, load and return the data
     if File.exists?(cassette_path)
