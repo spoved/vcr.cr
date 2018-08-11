@@ -1,3 +1,4 @@
+require "habitat"
 require "./ext/*"
 require "./vcr/*"
 
