@@ -1,6 +1,6 @@
 # vcr
 
-TODO: Write a description here
+VCR for Crystal
 
 ## Installation
 
@@ -9,24 +9,49 @@ Add this to your application's `shard.yml`:
 ```yaml
 dependencies:
   vcr:
-    github: your-github-user/vcr
+    github: spoved/vcr.cr
 ```
 
 ## Usage
 
 ```crystal
 require "vcr"
+require "http/client"
+
+load_cassette("cassette-one") do
+  response = HTTP::Client.get("https://jsonplaceholder.typicode.com/todos/1")
+end
 ```
 
-TODO: Write usage instructions here
+You can also record multiple requests within a single block:
 
-## Development
+```crystal
+load_cassette("cassette-two") do
+  r1 = HTTP::Client.get("https://jsonplaceholder.typicode.com/todos/1")
+  r2 = HTTP::Client.get("https://jsonplaceholder.typicode.com/todos/2")
+end
+```
 
-TODO: Write development instructions here
+To easily reset the cassette and record, simply add the `:record` argument:
+
+```crystal
+load_cassette("cassette-two", :record) do
+  r1 = HTTP::Client.get("https://jsonplaceholder.typicode.com/todos/1")
+  r2 = HTTP::Client.get("https://jsonplaceholder.typicode.com/todos/2")
+end
+```
+
+Customize the location of where the cassettes are stored. The default is `spec/fixtures/vcr`.
+
+```crystal
+VCR.configure do
+  settings.cassette_library_dir = "/some/path/cassettes"
+end
+```
 
 ## Contributing
 
-1. Fork it (<https://github.com/your-github-user/vcr/fork>)
+1. Fork it (<https://github.com/spoved/vcr.cr/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
@@ -34,4 +59,4 @@ TODO: Write development instructions here
 
 ## Contributors
 
-- [your-github-user](https://github.com/your-github-user) Holden Omans - creator, maintainer
+- [your-github-user](https://github.com/kalinon) Holden Omans - creator, maintainer

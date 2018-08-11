@@ -1,6 +1,6 @@
 require "./spec_helper"
 
-describe Vcr do
+describe VCR do
   # TODO: Write tests
 
   it "works" do
