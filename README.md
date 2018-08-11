@@ -9,7 +9,7 @@ Record your test suite's HTTP interactions and replay them during future test ru
 Add this to your application's `shard.yml`:
 
 ```yaml
-dependencies:
+development_dependencies:
   vcr:
     github: spoved/vcr.cr
 ```
