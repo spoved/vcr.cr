@@ -4,6 +4,21 @@ VCR for Crystal!
 
 Record your test suite's HTTP interactions and replay them during future test runs for fast, deterministic, accurate tests.
 
+Example reduction in test time with over 2k RESTful requests:
+
+* Without VCR
+```
+Finished in 10:22 minutes
+18 examples, 0 failures, 0 errors, 0 pending
+```
+
+* With VCR
+```
+Finished in 13.05 seconds
+18 examples, 0 failures, 0 errors, 0 pending
+```
+
+
 ## Installation
 
 Add this to your application's `shard.yml`:
@@ -61,4 +76,4 @@ end
 
 ## Contributors
 
-- [your-github-user](https://github.com/kalinon) Holden Omans - creator, maintainer
+- [kalinon](https://github.com/kalinon) Holden Omans - creator, maintainer
