@@ -6,18 +6,19 @@ Record your test suite's HTTP interactions and replay them during future test ru
 
 Example reduction in test time with over 2k RESTful requests:
 
-* Without VCR
+#### Without VCR
 ```
 Finished in 10:22 minutes
 18 examples, 0 failures, 0 errors, 0 pending
 ```
 
-* With VCR
+#### With VCR
 ```
 Finished in 13.05 seconds
 18 examples, 0 failures, 0 errors, 0 pending
 ```
 
+#### Notes:
 The idea of this port is to keep it simple and allow multiple requests to be recorded within a single "cassette" block. The ability to record changed requests to the same endpoint is also important and unavailable in other vcr ports. I have also tried to keep the syntax and methods as close to the Ruby VCR to help.
 
 Other VCR like ports:
