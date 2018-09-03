@@ -18,6 +18,12 @@ Finished in 13.05 seconds
 18 examples, 0 failures, 0 errors, 0 pending
 ```
 
+The idea of this port is to keep it simple and allow multiple requests to be recorded within a single "cassette" block. The ability to record changed requests to the same endpoint is also important and unavailable in other vcr ports. I have also tried to keep the syntax and methods as close to the Ruby VCR to help.
+
+Other VCR like ports:
+* [hi8](https://github.com/vonKingsley/hi8.cr)
+* [eighttrack](https://github.com/russ/eighttrack)
+
 
 ## Installation
 
