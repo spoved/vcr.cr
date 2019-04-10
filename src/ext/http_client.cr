@@ -15,6 +15,11 @@ class HTTP::Client
     # Create an md5 for the request
     req_md5 = Digest::MD5.hexdigest(request.to_json)
 
+    # Make the casset lib if it doesnt exist
+    unless Dir.exists?(VCR.settings.cassette_library_dir)
+      Dir.mkdir_p(VCR.settings.cassette_library_dir)
+    end
+
     # Create path vars
     cassette_dir = File.join(VCR.settings.cassette_library_dir, cassette_name)
 
