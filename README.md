@@ -1,4 +1,4 @@
-# vcr
+# vcr [![Build Status](https://travis-ci.org/spoved/vcr.cr.svg?branch=master)](https://travis-ci.org/spoved/vcr.cr)
 
 VCR for Crystal!
 
