@@ -38,9 +38,16 @@ class HTTP::Client
       else
         response = orig_exec_internal_single(request)
         unless response.nil?
+          io = IO::Memory.new
           cassette_file = File.open(cassette_path, "w+")
-          response.to_io(cassette_file)
-          cassette_file.flush
+          response.to_io(io)
+          io.rewind
+
+          cassette_file = File.open(cassette_path, "w+")
+          io.each_line do |line|
+            cassette_file.puts(line) unless line =~ /Content-Encoding: gzip/
+          end
+          cassette_file.close
 
           return response
         end
