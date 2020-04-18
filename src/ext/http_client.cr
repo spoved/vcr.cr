@@ -26,7 +26,7 @@ class HTTP::Client
       cassette_dir = File.join(VCR.settings.cassette_library_dir, cassette_name)
 
       # Create a dir for our cassette
-      FileUtils.mkdir(cassette_dir) unless (Dir.exists?(cassette_dir))
+      Dir.mkdir_p(cassette_dir) unless (Dir.exists?(cassette_dir))
 
       # Make file name based on if this cassette should be tracked in order
       file_name = VCR.in_order? ? "#{VCR.sequence}.#{req_md5}.vcr" : "#{req_md5}.vcr"
