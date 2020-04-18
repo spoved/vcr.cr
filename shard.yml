@@ -1,5 +1,5 @@
 name: vcr
-version: 0.2.2
+version: 0.2.3
 
 authors:
   - Holden Omans <holden.omans@gmail.com>
@@ -7,7 +7,7 @@ authors:
 description: |
   Record your test suite's HTTP interactions and replay them during future test runs for fast, deterministic, accurate tests.
 
-crystal: 0.29.0
+crystal: 0.34.0
 
 license: MIT
 
