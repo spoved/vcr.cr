@@ -1,4 +1,5 @@
 require "http/request"
+require "json"
 
 class HTTP::Request
   def to_json
