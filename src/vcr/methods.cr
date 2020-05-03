@@ -6,6 +6,10 @@ module VCR::Methods
       block.call
     end
   end
+
+  def load_cassette(cassette, *args)
+    VCR.use_cassette(cassette, *args)
+  end
 end
 
 include VCR::Methods

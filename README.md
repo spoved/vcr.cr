@@ -84,6 +84,14 @@ VCR.configure do
 end
 ```
 
+### Spec usage
+
+Add a hook to load a cassette before the whole suite or use `before_each` inside your context
+
+```crystal
+Spec.before_suite { load_cassette("my-spec-cassette", :record) }
+```
+
 ## Contributing
 
 1. Fork it (<https://github.com/spoved/vcr.cr/fork>)

@@ -51,14 +51,18 @@ module VCR
   # end
   # ```
   def use_cassette(cassette_name : String, *args, &block)
+    use_cassette(cassette_name, *args)
+
+    block.call
+    reset!
+  end
+
+  def use_cassette(cassette_name : String, *args)
     @@cassette_name = cassette_name
     @@sequence = 0
 
     @@in_order = args.includes?(:in_order)
     reset_cassette(cassette_name) if args.includes?(:record)
-
-    block.call
-    reset!
   end
 
   # Method to reset class variables. Called at the end of every `use_cassette` method
