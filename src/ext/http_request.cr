@@ -5,7 +5,7 @@ class HTTP::Request
   def to_json
     {
       method:       method,
-      host:         host,
+      host:         hostname,
       resource:     resource,
       headers:      headers.to_h,
       body:         body.to_s,
