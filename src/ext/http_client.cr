@@ -39,7 +39,7 @@ class HTTP::Client
         response = orig_exec_internal_single(request)
         unless response.nil?
           io = IO::Memory.new
-          cassette_file = File.open(cassette_path, "w+")
+
           response.to_io(io)
           io.rewind
 
