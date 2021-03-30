@@ -14,44 +14,7 @@ class HTTP::Client
     if (cassette_name.nil?)
       return orig_exec_internal_single(request)
     else
-      # Create an md5 for the request
-      req_md5 = Digest::MD5.hexdigest(request.to_json)
-
-      # Make the casset lib if it doesnt exist
-      unless Dir.exists?(VCR.settings.cassette_library_dir)
-        Dir.mkdir_p(VCR.settings.cassette_library_dir)
-      end
-
-      # Create path vars
-      cassette_dir = File.join(VCR.settings.cassette_library_dir, cassette_name)
-
-      # Create a dir for our cassette
-      Dir.mkdir_p(cassette_dir) unless (Dir.exists?(cassette_dir))
-
-      # Make file name based on if this cassette should be tracked in order
-      file_name = VCR.in_order? ? "#{VCR.sequence}.#{req_md5}.vcr" : "#{req_md5}.vcr"
-      cassette_path = File.join(cassette_dir, file_name)
-
-      # If it exists, load and return the data
-      if File.exists?(cassette_path)
-        HTTP::Client::Response.from_io(File.open(cassette_path))
-      else
-        response = orig_exec_internal_single(request)
-        unless response.nil?
-          io = IO::Memory.new
-
-          response.to_io(io)
-          io.rewind
-
-          cassette_file = File.open(cassette_path, "w+")
-          io.each_line do |line|
-            cassette_file.puts(line) unless line =~ /Content-Encoding: gzip/
-          end
-          cassette_file.close
-
-          return response
-        end
-      end
+      VCR.record(request)
     end
   end
 end
