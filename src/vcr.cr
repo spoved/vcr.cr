@@ -20,7 +20,7 @@ module VCR
   end
 
   def cassette_dir
-    @@cassette_dir ||= File.join(VCR.settings.cassette_library_dir, cassette_name)
+    @@cassette_dir ||= File.join(VCR.settings.cassette_library_dir, cassette_name.not_nil!)
   end
 
   # The current sequence, calling this will increment the value
