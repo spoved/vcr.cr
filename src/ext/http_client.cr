@@ -20,7 +20,8 @@ class HTTP::Client
 
   private def _vcr_record(request)
     # Create an md5 for the request
-    req_md5 = Digest::MD5.hexdigest(request.to_json)
+    secured_request = VCR.filter_sensitive_data!(request)
+    req_md5 = Digest::MD5.hexdigest(secured_request.to_json)
     cassette_dir = VCR.cassette_dir
 
     # Create a dir for our cassette
