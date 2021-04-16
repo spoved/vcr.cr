@@ -12,6 +12,7 @@ module VCR
 
   Habitat.create do
     setting cassette_library_dir : String = "spec/fixtures/vcr"
+    setting filter_sensitive_data : Hash(String, String) = Hash(String, String).new
   end
 
   # The name of the cassette
@@ -68,6 +69,22 @@ module VCR
 
     @@in_order = args.includes?(:in_order)
     reset_cassette(cassette_name) if args.includes?(:record)
+  end
+
+  def filter_sensitive_data(param_name : String, placeholder : String)
+    VCR.settings.filter_sensitive_data[param_name] = placeholder
+  end
+
+  def filter_sensitive_data!(request : HTTP::Request) : HTTP::Request
+    secured_req = request.dup
+    secured_req.query = request.query.dup
+    secured_req.headers = request.headers.dup
+
+    VCR.settings.filter_sensitive_data.each do |param, placeholder|
+      secured_req.query_params[param] = placeholder if secured_req.query_params[param]?
+      secured_req.headers[param] = placeholder if secured_req.headers[param]?
+    end
+    secured_req
   end
 
   # Method to reset class variables. Called at the end of every `use_cassette` method
