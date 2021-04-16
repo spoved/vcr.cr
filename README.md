@@ -7,24 +7,27 @@ Record your test suite's HTTP interactions and replay them during future test ru
 Example reduction in test time with over 2k RESTful requests:
 
 #### Without VCR
+
 ```
 Finished in 10:22 minutes
 18 examples, 0 failures, 0 errors, 0 pending
 ```
 
 #### With VCR
+
 ```
 Finished in 13.05 seconds
 18 examples, 0 failures, 0 errors, 0 pending
 ```
 
 #### Notes:
+
 The idea of this port is to keep it simple and allow multiple requests to be recorded within a single "cassette" block. The ability to record changed requests to the same endpoint is also important and unavailable in other vcr ports. I have also tried to keep the syntax and methods as close to the Ruby VCR to help.
 
 Other VCR like ports:
-* [hi8](https://github.com/vonKingsley/hi8.cr)
-* [eighttrack](https://github.com/russ/eighttrack)
 
+- [hi8](https://github.com/vonKingsley/hi8.cr)
+- [eighttrack](https://github.com/russ/eighttrack)
 
 ## Installation
 
@@ -81,6 +84,14 @@ Customize the location of where the cassettes are stored. The default is `spec/f
 ```crystal
 VCR.configure do
   settings.cassette_library_dir = "/some/path/cassettes"
+end
+```
+
+Sensitive data can be filtered out via the `filter_sensitive_data` setting (thanks [mmacia](https://github.com/mmacia)!):
+
+```crystal
+VCR.configure do |settings|
+  settings.filter_sensitive_data["api_key"] = "<API_KEY>"
 end
 ```
 
