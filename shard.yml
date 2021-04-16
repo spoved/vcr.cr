@@ -13,12 +13,12 @@ license: MIT
 
 dependencies:
   habitat:
-    # github: luckyframework/habitat
+    github: luckyframework/habitat
     # until https://github.com/luckyframework/habitat/pull/71 is merged
-    github: kalinon/habitat
-    branch: patch-1
+    # github: kalinon/habitat
+    # branch: patch-1
 development_dependencies:
   halite:
-    # github: icyleaf/halite
-    github: kalinon/halite
-    branch: patch-1
+    github: icyleaf/halite
+    # github: kalinon/halite
+    # branch: patch-1
