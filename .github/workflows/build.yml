@@ -1,0 +1,23 @@
+name: build
+on: [push, pull_request]
+jobs:
+  spec:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        crystal: [1.0.0, latest, nightly]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Crystal
+        uses: oprypin/install-crystal@v1
+        with:
+          crystal: ${{ matrix.crystal }}
+      - name: Install shards
+        run: shards install
+      - name: Run tests
+        run: crystal spec --error-trace
+      # - name: Check formatting
+      #   run: crystal tool format --check

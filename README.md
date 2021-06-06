@@ -1,4 +1,13 @@
-# vcr [![Build Status](https://travis-ci.org/spoved/vcr.cr.svg?branch=master)](https://travis-ci.org/spoved/vcr.cr)
+# vcr
+
+<p align="center">
+    <a href="https://github.com/spoved/vcr.cr/actions/workflows/build.yml">
+        <img src="https://github.com/spoved/vcr.cr/actions/workflows/build.yml/badge.svg" alt="Build Status"></a>
+    <a href="https://github.com/spoved/vcr.cr/actions/workflows/release.yml">
+        <img src="https://github.com/spoved/vcr.cr/actions/workflows/release.yml/badge.svg" alt="Release Status"></a>
+    <a href="https://github.com/spoved/vcr.cr/releases">
+        <img src="https://img.shields.io/github/v/release/spoved/vcr.cr" alt="Latest release"></a>
+</p>
 
 VCR for Crystal!
 
@@ -6,21 +15,21 @@ Record your test suite's HTTP interactions and replay them during future test ru
 
 Example reduction in test time with over 2k RESTful requests:
 
-#### Without VCR
+### Without VCR
 
 ```
 Finished in 10:22 minutes
 18 examples, 0 failures, 0 errors, 0 pending
 ```
 
-#### With VCR
+### With VCR
 
 ```
 Finished in 13.05 seconds
 18 examples, 0 failures, 0 errors, 0 pending
 ```
 
-#### Notes:
+### Notes:
 
 The idea of this port is to keep it simple and allow multiple requests to be recorded within a single "cassette" block. The ability to record changed requests to the same endpoint is also important and unavailable in other vcr ports. I have also tried to keep the syntax and methods as close to the Ruby VCR to help.
 
