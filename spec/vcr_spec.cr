@@ -13,6 +13,14 @@ describe VCR do
     end
   end
 
+  it "switches cassette_dir when new cassette is loaded" do
+    load_cassette("cassette-one") do
+    end
+    load_cassette("cassette-two") do
+      VCR.cassette_dir.should eq "spec/fixtures/vcr/cassette-two"
+    end
+  end
+
   describe "#filter_sensitive_data!" do
     headers = HTTP::Headers.new
     headers["Authorization"] = "Bearer 123"

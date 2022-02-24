@@ -8,7 +8,6 @@ module VCR
 
   @@in_order = false
   @@sequence = 0
-  @@cassette_dir : String? = nil
 
   Habitat.create do
     setting cassette_library_dir : String = "spec/fixtures/vcr"
@@ -21,7 +20,7 @@ module VCR
   end
 
   def cassette_dir
-    @@cassette_dir ||= File.join(VCR.settings.cassette_library_dir, cassette_name.not_nil!)
+    File.join(VCR.settings.cassette_library_dir, cassette_name.not_nil!)
   end
 
   # The current sequence, calling this will increment the value
