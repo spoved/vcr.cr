@@ -15,10 +15,15 @@ describe VCR do
 
   it "switches cassette_dir when new cassette is loaded" do
     load_cassette("cassette-one") do
+      VCR.cassette_dir.should eq "spec/fixtures/vcr/cassette-one"
     end
+
     load_cassette("cassette-two") do
       VCR.cassette_dir.should eq "spec/fixtures/vcr/cassette-two"
     end
+
+    load_cassette("cassette-three")
+    VCR.cassette_dir.should eq "spec/fixtures/vcr/cassette-three"
   end
 
   describe "#filter_sensitive_data!" do
