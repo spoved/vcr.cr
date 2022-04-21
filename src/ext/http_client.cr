@@ -4,7 +4,7 @@ require "digest"
 class HTTP::Client
   private def orig_exec_internal_single(request)
     decompress = send_request(request)
-    return HTTP::Client::Response.from_io?(io, ignore_body: request.ignore_body?, decompress: decompress)
+    HTTP::Client::Response.from_io?(io, ignore_body: request.ignore_body?, decompress: decompress)
   end
 
   private def exec_internal_single(request)
@@ -12,7 +12,7 @@ class HTTP::Client
 
     # If we do not have a cassette_name, perform a normal request
     if (cassette_name.nil?)
-      return orig_exec_internal_single(request)
+      orig_exec_internal_single(request)
     else
       _vcr_record(request)
     end
@@ -34,8 +34,11 @@ class HTTP::Client
     # If it exists, load and return the data
     if File.exists?(cassette_path)
       f = File.open(cassette_path)
-      response = HTTP::Client::Response.from_io(f)
-      f.close
+      begin
+        response = HTTP::Client::Response.from_io(f)
+      ensure
+        f.close
+      end
       response
     else
       response = orig_exec_internal_single(request)
@@ -44,11 +47,7 @@ class HTTP::Client
         response.to_io(io)
         io.rewind
 
-        File.open(cassette_path, "w+") do |f|
-          io.each_line do |line|
-            f.puts(line) unless line =~ /Content-Encoding: gzip/
-          end
-        end
+        File.write(cassette_path, io)
 
         return response
       end
