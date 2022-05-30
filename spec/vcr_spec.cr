@@ -26,6 +26,16 @@ describe VCR do
     VCR.cassette_dir.should eq "spec/fixtures/vcr/cassette-three"
   end
 
+  describe "HTTP::Request#to_json" do
+    it "returns a json string with IO body" do
+      file = File.open("spec/fixtures/test.txt")
+      headers = HTTP::Headers.new
+      headers["Content-Type"] = "text/plain"
+      request = HTTP::Request.new("POST", "http://httpbin.org/post", headers, file)
+      request.to_json.should eq("{\"method\":\"POST\",\"host\":null,\"resource\":\"http://httpbin.org/post\",\"headers\":{\"Content-Type\":[\"text/plain\"]},\"body\":\"hello crystal\\n\",\"query_params\":{}}")
+    end
+  end
+
   describe "#filter_sensitive_data!" do
     headers = HTTP::Headers.new
     headers["Authorization"] = "Bearer 123"
